@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="arrayWeather">
+        <item>Температура</item>
+        <item>Давление</item>
+        <item>Влажность</item>
+        <item>Дата</item>
+        <item>Васька</item>
+
+    </string-array>
+
+</resources>
