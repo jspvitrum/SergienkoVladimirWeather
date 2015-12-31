@@ -1,13 +1,20 @@
 package com.sergienko.weather.main.activity;
 
+
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -16,8 +23,11 @@ import android.widget.Toast;
 import com.sergienko.weather.R;
 import com.sergienko.weather.base.DataBase;
 import com.sergienko.weather.detail.activity.DetailActivity;
+import com.sergienko.weather.service.ServiceWeather;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,11 +42,32 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<HashMap<String, String>> contactList;
     String json;
     DataBase dbHelper;
+    ServiceWeather.MyBinder binder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
+        binder = new ServiceWeather.MyBinder();
+//if   (){ unbindService(mConnection);}
+
+        final CheckBox checkBox=(CheckBox) findViewById(R.id.checkBox);
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+              if (checkBox.isChecked()) {
+
+                  Intent intent = new Intent(MainActivity.this, ServiceWeather.class);
+                  bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+              }   else { Intent intent = new Intent(MainActivity.this, ServiceWeather.class);
+                  unbindService(mConnection);}
+            }
+        });
+
+
 
         dbHelper = new DataBase(this, DATABASE_NAME, null, 1);
 
@@ -71,6 +102,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        Intent intent = new Intent(MainActivity.this, ServiceWeather.class);
+        unbindService(mConnection);
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -102,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected ArrayList doInBackground(Void... params) {
+
 
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
@@ -178,6 +217,20 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            binder = (ServiceWeather.MyBinder) service;
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
 }
 
 

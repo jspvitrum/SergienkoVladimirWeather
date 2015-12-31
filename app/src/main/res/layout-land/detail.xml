@@ -8,57 +8,57 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Дата"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#f489"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dt_txt"
-        android:textSize="20sp"/>
+        android:textSize="15sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/temp"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#f489"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/temp"
-        android:textSize="20sp"/>
+        android:textSize="15sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pressure"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#f489"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/pressure"
-        android:textSize="20sp"/>
+        android:textSize="15sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/humidity"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#f489"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/humidity"
-        android:textSize="20sp"/>
+        android:textSize="15sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/speed"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#f489"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/speed"
-        android:textSize="20sp"/>
+        android:textSize="15sp"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
