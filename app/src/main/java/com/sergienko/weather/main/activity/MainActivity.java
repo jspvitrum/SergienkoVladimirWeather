@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -13,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
         binder = new ServiceWeather.MyBinder();
-//if   (){ unbindService(mConnection);}
 
+       setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         final CheckBox checkBox=(CheckBox) findViewById(R.id.checkBox);
 
         checkBox.setOnClickListener(new View.OnClickListener() {
@@ -62,12 +62,15 @@ public class MainActivity extends AppCompatActivity {
 
                   Intent intent = new Intent(MainActivity.this, ServiceWeather.class);
                   bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-              }   else { Intent intent = new Intent(MainActivity.this, ServiceWeather.class);
-                  unbindService(mConnection);}
-            }
-        });
+              }
 
 
+        if (checkBox.isChecked()==false) {
+
+             Intent intent = new Intent(MainActivity.this, ServiceWeather.class);
+            unbindService(mConnection);}
+    }
+});
 
         dbHelper = new DataBase(this, DATABASE_NAME, null, 1);
 
@@ -104,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Intent intent = new Intent(MainActivity.this, ServiceWeather.class);
-        unbindService(mConnection);
+//        unbindService(mConnection);
         super.onDestroy();
     }
 
@@ -148,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             URL url;
 
             try {
-                url = new URL("http://api.openweathermap.org/data/2.5/forecast/city?id=710791&APPID=6f323a3c0242a992127d069c520e2cea");
+                url = new URL("http://api.openweathermap.org/data/2.5/forecast/city?id=710791&APPID=7ecc1ea3a34dd7e4677a252c9ddafa8e");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();

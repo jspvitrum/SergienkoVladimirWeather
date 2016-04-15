@@ -1,9 +1,11 @@
 package com.sergienko.weather.detail.activity;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.sergienko.weather.R;
 import com.squareup.picasso.Picasso;
 
@@ -16,7 +18,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail);
-
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         TextView textView = (TextView) findViewById(R.id.pressure);
 
         String pressure = getIntent().getStringExtra("pressure");
